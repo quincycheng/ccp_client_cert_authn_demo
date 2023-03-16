@@ -1,6 +1,6 @@
-# Client Cert Authentication to CyberArk Central Credential Provider 
+# CyberArk Central Credential Provider Client Cert Authentication
 
-This repo demostrates how to authenticate to CyberArk Central Credential Provider (CCP) with client certificate
+This repo demostrates how to authenticate to CyberArk Central Credential Provider (CCP) using client certificates
 Please note that there are many ways to do so, and the content here is for reference only
 
 ## Demo 1: Script
@@ -123,3 +123,25 @@ public class Demo {
     }
 }
 ```
+
+To compile: `javac Demo.java`
+To execute: `java Demo | jq .`
+
+Sample result:
+
+```
+{
+  "Content": "<secret value>",
+  "PolicyID": "MySQL",
+  "CreationMethod": "PVWA",
+  "Folder": "Root",
+  "Address": "database.pov.example.com",
+  "Name": "Database-MySQL-database.pov.example.com-admin",
+  "Safe": "POV",
+  "DeviceType": "Database",
+  "UserName": "admin",
+  "PasswordChangeInProcess": "False"
+}
+```
+
+
