@@ -69,7 +69,8 @@ Keystore is used for storing client cert & private key for Java client app
 
 ```
 openssl pkcs12 -export \
- -inkey ../ccp/01-quincy.key -in ../ccp/01-quincy.pem -out 01-quincy.pfx -passout pass: -name 01-quincy
+ -inkey 01-quincy.key -in 01-quincy.pem \
+ -out 01-quincy.pfx -passout pass: -name 01-quincy
 ```
 
 ### Sample Code in Java
@@ -96,24 +97,18 @@ public class Demo {
         try {
             URL url = new URL(urlString);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
             keyStore.load(new FileInputStream(pathKeyStore), new char[0]);
-
             KeyManagerFactory keyManagerFactory = KeyManagerFactory
                     .getInstance(KeyManagerFactory.getDefaultAlgorithm());
             keyManagerFactory.init(keyStore, new char[0]);
-
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(keyManagerFactory.getKeyManagers(), null, null);
-
             connection.setSSLSocketFactory(sslContext.getSocketFactory());
-
             connection.setRequestMethod("GET");
             connection.setDoInput(true);
 
             InputStream inputStream = connection.getInputStream();
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder result = new StringBuilder();
             String line;
